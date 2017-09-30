@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataSet;
@@ -15,13 +17,17 @@ public class Learning1 {
 		DataFrame<Object> df = new DataFrame<>();
 		try{
 			// import csv dataset using joinery library
-			df = Dataset.readDataset(args[0]);
+			df = GuessWhoDataset.readDataset(args[0]);
 			System.out.println(df);
 		}
 		catch(ArrayIndexOutOfBoundsException e){
 			System.out.println("usage: java -jar Learning1.jar filename");
 			System.exit(0);
 		}
+		
+		// training data
+		double[][] INPUT = GuessWhoDataset.createInputArray(df);
+		double[][] OUTPUT = GuessWhoDataset.createOutputArray(df);
 	}
 
 }
