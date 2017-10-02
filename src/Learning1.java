@@ -31,7 +31,7 @@ public class Learning1 {
 		MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
 		
 		int inputUnits = 7; // characters' features
-		int hiddenUnits = 10; 
+		int hiddenUnits = 9; // 9 is the best so far
 		int outputUnits = 3; // characters' binary code
 		
 		BasicNetwork network = new BasicNetwork();
@@ -44,7 +44,9 @@ public class Learning1 {
 		network.getStructure().finalizeStructure();
 		network.reset();
 		
-		Backpropagation train = new Backpropagation (network, trainingSet,0.5,0.0);
+		double learningRate = 0.7;
+		double momentum = 0.0;
+		Backpropagation train = new Backpropagation (network, trainingSet, learningRate, momentum);
 		
 		//train the network
 		int epoch = 1;
