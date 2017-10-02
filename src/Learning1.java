@@ -1,6 +1,3 @@
-import java.io.File;
-import java.util.Arrays;
-
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataSet;
@@ -9,9 +6,15 @@ import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.back.Backpropagation;
+
+import ann.NetworkUtil;
+
 import static org.encog.persist.EncogDirectoryPersistence.saveObject;
 
 import joinery.DataFrame;
+import dataset.GuessWhoDataset;
+import java.io.File;
+import java.util.Arrays;
 
 public class Learning1 {
 	
@@ -23,7 +26,7 @@ public class Learning1 {
 			System.out.println(df);
 		}
 		catch(ArrayIndexOutOfBoundsException e){
-			System.out.println("usage: java -jar Learning1.jar filename");
+			System.out.println("usage: java -jar Learning1.jar dataset_file");
 			System.exit(0);
 		}
 		
@@ -63,7 +66,9 @@ public class Learning1 {
 		String filename = "Trained_ANN.eg";
 		saveObject(new File(filename), network);
 		
-		// TODO compute data role by role
+		// test the network
+		String[] guessedChars = NetworkUtil.getNetworkPredictions(INPUT, network);
+		System.out.println(Arrays.toString(guessedChars));
 //		double[] h = new double[]{0,0};
 //		MLData data = new BasicMLData(h);
 //		MLData output = network.compute(data);
