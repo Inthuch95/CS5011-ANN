@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Arrays;
 
 import org.encog.engine.network.activation.ActivationSigmoid;
@@ -8,6 +9,7 @@ import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.back.Backpropagation;
+import static org.encog.persist.EncogDirectoryPersistence.saveObject;
 
 import joinery.DataFrame;
 
@@ -57,6 +59,11 @@ public class Learning1 {
 		} while(train.getError() > 0.01);
 		train.finishTraining();
 		
+		//save the network
+		String filename = "Trained_ANN.eg";
+		saveObject(new File(filename), network);
+		
+		// TODO compute data role by role
 //		double[] h = new double[]{0,0};
 //		MLData data = new BasicMLData(h);
 //		MLData output = network.compute(data);
