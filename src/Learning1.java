@@ -28,6 +28,38 @@ public class Learning1 {
 		// training data
 		double[][] INPUT = GuessWhoDataset.createInputArray(df);
 		double[][] OUTPUT = GuessWhoDataset.createOutputArray(df);
+		MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
+		
+		int inputUnits = 7; // characters' features
+		int hiddenUnits = 10; 
+		int outputUnits = 3; // characters' binary code
+		
+		BasicNetwork network = new BasicNetwork();
+		// input Layer
+		network.addLayer(new BasicLayer(null, true, inputUnits));
+		// hidden Layer
+		network.addLayer(new BasicLayer(new ActivationSigmoid(),true,hiddenUnits));
+		// output Layer
+		network.addLayer(new BasicLayer(new ActivationSigmoid(),false,outputUnits));
+		network.getStructure().finalizeStructure();
+		network.reset();
+		
+		Backpropagation train = new Backpropagation (network, trainingSet,0.5,0.0);
+		
+		//train the network
+		int epoch = 1;
+		do {
+		train.iteration();
+		System.out.println("Epoch #" + epoch + " Error:" + train.getError());
+		epoch++;
+		} while(train.getError() > 0.01);
+		train.finishTraining();
+		
+//		double[] h = new double[]{0,0};
+//		MLData data = new BasicMLData(h);
+//		MLData output = network.compute(data);
+//		System.out.println("input =" + data.getData(0) + " " + data.getData(1));
+//		System.out.println("actual = " + output.getData(0));
 	}
 
 }
