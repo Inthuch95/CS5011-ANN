@@ -13,7 +13,7 @@ public class NetworkUtil {
 	private static double[] Anne = {0, 1, 1};
 	private static double[] Bernard = {1, 0, 0};	
 	
-	public static String[] getNetworkPredictions(double[][]INPUT, BasicNetwork network){
+	public static String[] getNetworkPredictions(double[][]INPUT, BasicNetwork network, double threshold){
 		// TODO compute data role by role
 		double[][] predictions = new double[INPUT.length][3];
 		String[] predictionsStr = new String[INPUT.length];
@@ -22,7 +22,7 @@ public class NetworkUtil {
 			MLData data = new BasicMLData(input);
 			MLData output = network.compute(data);
 			for(int j=0;j<output.size();j++){
-				if(output.getData(j) >= 0.5){
+				if(output.getData(j) >= threshold){
 					predictions[i][j] = 1;
 				}
 				else{

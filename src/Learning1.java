@@ -1,22 +1,16 @@
 import org.encog.engine.network.activation.ActivationSigmoid;
-import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataSet;
-import org.encog.ml.data.basic.BasicMLData;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.back.Backpropagation;
-
-import ann.NetworkUtil;
-
 import static org.encog.persist.EncogDirectoryPersistence.saveObject;
 
-import joinery.DataFrame;
+import ann.NetworkUtil;
 import dataset.GuessWhoDataset;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 public class Learning1 {
 	
@@ -25,9 +19,8 @@ public class Learning1 {
 			System.out.println("usage: java -jar Learning1.jar dataset_file");
 			System.exit(0);
 		}
-		
+		// read dataset from csv file
 		GuessWhoDataset guessWho = new GuessWhoDataset(args[0]);
-		System.out.println(guessWho.df);
 		
 		// training data
 		MLDataSet trainingSet = new BasicMLDataSet(guessWho.INPUT, guessWho.OUTPUT);
@@ -64,7 +57,9 @@ public class Learning1 {
 		saveObject(new File(filename), network);
 		
 		// test the network
-		String[] guessedChars = NetworkUtil.getNetworkPredictions(guessWho.INPUT, network);
+		double threshold = 0.5;
+		String[] guessedChars = NetworkUtil.getNetworkPredictions(guessWho.INPUT, 
+				network, threshold);
 		guessWho.df.add("Network output", Arrays.asList(guessedChars));
 		try {
 			guessWho.df.writeCsv("Network_Test.csv");
