@@ -14,26 +14,23 @@ import static org.encog.persist.EncogDirectoryPersistence.saveObject;
 import joinery.DataFrame;
 import dataset.GuessWhoDataset;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 public class Learning1 {
 	
 	public static void main(String[] args) {
-		DataFrame<Object> df = new DataFrame<>();
-		try{
-			// import csv dataset using joinery library
-			df = GuessWhoDataset.readDataset(args[0]);
-			System.out.println(df);
-		}
-		catch(ArrayIndexOutOfBoundsException e){
+		if(args.length < 1){
 			System.out.println("usage: java -jar Learning1.jar dataset_file");
 			System.exit(0);
 		}
 		
+		GuessWhoDataset guessWho = new GuessWhoDataset(args[0]);
+		System.out.println(guessWho.df);
+		
 		// training data
-		double[][] INPUT = GuessWhoDataset.createInputArray(df);
-		double[][] OUTPUT = GuessWhoDataset.createOutputArray(df);
-		MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
+		MLDataSet trainingSet = new BasicMLDataSet(guessWho.INPUT, guessWho.OUTPUT);
 		
 		int inputUnits = 7; // characters' features
 		int hiddenUnits = 9; // 9 is the best so far
@@ -67,13 +64,16 @@ public class Learning1 {
 		saveObject(new File(filename), network);
 		
 		// test the network
-		String[] guessedChars = NetworkUtil.getNetworkPredictions(INPUT, network);
-		System.out.println(Arrays.toString(guessedChars));
-//		double[] h = new double[]{0,0};
-//		MLData data = new BasicMLData(h);
-//		MLData output = network.compute(data);
-//		System.out.println("input =" + data.getData(0) + " " + data.getData(1));
-//		System.out.println("actual = " + output.getData(0));
+		String[] guessedChars = NetworkUtil.getNetworkPredictions(guessWho.INPUT, network);
+		guessWho.df.add("Network output", Arrays.asList(guessedChars));
+		try {
+			guessWho.df.writeCsv("Network_Test.csv");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(0);
+		}
+		System.out.println(guessWho.df);
 	}
 
 }
