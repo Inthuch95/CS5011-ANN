@@ -1,7 +1,6 @@
 package game;
 
 import static org.encog.persist.EncogDirectoryPersistence.loadObject;
-
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.basic.BasicMLData;
 import org.encog.neural.networks.BasicNetwork;
@@ -17,7 +16,7 @@ import java.util.Scanner;
 public class GuessWhoGame {
 	public static final Map<String, String> FEATURE_MAP = createFeatureMap();
 	public static final Map<String, Double> USER_INPUT_MAP = createUserInputMap();
-	public static final Map<String, double[]> CHARACTER_MAP = GuessWhoDataset.charMap;
+	public static final Map<String, double[]> CHARACTER_MAP = GuessWhoDataset.CHARACTER_MAP;
 	public static final double THRESHOLD = 0.5;
 	public BasicNetwork network;
 	

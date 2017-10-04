@@ -3,7 +3,6 @@ package ann;
 import static org.encog.persist.EncogDirectoryPersistence.saveObject;
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.ml.data.MLData;
-import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLData;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
@@ -14,8 +13,11 @@ import joinery.DataFrame;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 
 public class NetworkUtil {
+	
+	private static final double THRESHOLD = 0.5;
 	
 	public static BasicNetwork createNetwork(int inputUnits, int hiddenUnits, 
 			int outputUnits){
@@ -60,7 +62,7 @@ public class NetworkUtil {
 	}
 	
 	public static String[] getNetworkPredictions(double[][]INPUT, 
-			BasicNetwork network, double threshold){
+			BasicNetwork network){
 		// compute data role by role
 		double[][] predictions = new double[INPUT.length][3];
 		String[] predictionsStr = new String[INPUT.length];
@@ -69,37 +71,25 @@ public class NetworkUtil {
 			MLData data = new BasicMLData(input);
 			MLData output = network.compute(data);
 			for(int j=0;j<output.size();j++){
-				if(output.getData(j) >= threshold){
-					predictions[i][j] = 1;
+				if(output.getData(j) >= THRESHOLD){
+					predictions[i][j] = 1.0;
 				}
 				else{
-					predictions[i][j] = 0;
+					predictions[i][j] = 0.0;
 				}
 			}
-			if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Alex"))){
-				predictionsStr[i] = "Alex";
-			}
-			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Alfred"))){
-				predictionsStr[i] = "Alfred";
-			}
-			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Anita"))){
-				predictionsStr[i] = "Anita";
-			}
-			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Anne"))){
-				predictionsStr[i] = "Anne";
-			}
-			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Bernard"))){
-				predictionsStr[i] = "Bernard";
-			}
-			else{
-				predictionsStr[i] = "Unknown character!";
+			for(Map.Entry<String, double[]> entry : GuessWhoDataset.CHARACTER_MAP.entrySet()){
+				if(Arrays.equals(predictions[i], entry.getValue())){
+					predictionsStr[i] = entry.getKey();
+					break;
+				}
 			}
 		}
 		
 		return predictionsStr;
 	}
 	
-	public static int getclassificationScore(DataFrame df){
+	public static int getClassificationScore(DataFrame df){
 		int score = 0;
 		String observed, predicted; 
 		for(int i=0;i<df.length();i++){

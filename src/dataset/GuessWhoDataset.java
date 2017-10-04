@@ -1,14 +1,15 @@
 package dataset;
 
+import joinery.DataFrame;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import joinery.DataFrame;
-
 public class GuessWhoDataset {
 	// create characters map
-	public static final Map<String, double[]> charMap = createCharMap();
+	public static final Map<String, double[]> CHARACTER_MAP = createCharMap();
+	public static final Map<String, Double> INPUT_MAP = createInputMap();
     public DataFrame<Object> df;
     public double[][] INPUT, OUTPUT; 
     
@@ -41,17 +42,24 @@ public class GuessWhoDataset {
         
         return charMap;
     }
+    
+    private static Map<String, Double> createInputMap(){
+    	// maps characters' name to the binary arrays that represent them
+    	Map<String, Double> charMap = new HashMap<String, Double>();
+        charMap.put("Yes", 1.0);
+        charMap.put("No", 0.0);
+        
+        return charMap;
+    }
 	
 	private double[][] createInputArray(){
 		double[][] INPUT = new double[this.df.length()][this.df.columns().size()-1];
+		String featureInput;
+		
 		for(int i=0;i<this.df.length();i++){
 			for(int j=0;j<(this.df.row(i).size()-1);j++){
-				if(this.df.row(i).get(j).toString().equals("Yes")){
-					INPUT[i][j] = 1;
-				}
-				else{
-					INPUT[i][j] = 0;
-				}
+				featureInput = this.df.row(i).get(j).toString();
+				INPUT[i][j] = INPUT_MAP.get(featureInput);
 			}
 		}
 		
@@ -63,7 +71,7 @@ public class GuessWhoDataset {
 		String name;
 		for(int i=0;i<this.df.length();i++){
 			name = this.df.row(i).get(this.df.columns().size()-1).toString();
-			OUTPUT[i] = charMap.get(name);
+			OUTPUT[i] = CHARACTER_MAP.get(name);
 		}
 		
 		return OUTPUT;
