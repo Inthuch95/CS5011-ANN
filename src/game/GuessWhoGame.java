@@ -21,6 +21,7 @@ public class GuessWhoGame {
 	public BasicNetwork network;
 	
 	public GuessWhoGame(String filename){
+		// load the network from a file
 		this.network = (BasicNetwork)loadObject(new File(filename));
 	}
 	
@@ -51,6 +52,7 @@ public class GuessWhoGame {
 		String guessedChar;
 		
 		System.out.println("Welcome to Guess Who!\n");
+		// ask the questions and guess the character
 		while(keepPlaying){
 			double[] features = this.collectFeaturesFromUser();
 			System.out.println("Network input: " + Arrays.toString(features));
@@ -89,7 +91,7 @@ public class GuessWhoGame {
 		double[] netOutput = new double[this.network.getOutputCount()];
 		MLData data = new BasicMLData(features);
 		MLData output = this.network.compute(data);
-		
+		// use neural network to compute output
 		for(int i=0;i<output.size();i++){
 			if(output.getData(i) >= THRESHOLD){
 				netOutput[i] = 1.0;
@@ -98,6 +100,7 @@ public class GuessWhoGame {
 				netOutput[i] = 0.0;
 			}
 		}
+		// retrieve character name
 		for(Map.Entry<String, double[]> entry : CHARACTER_MAP.entrySet()){
 			if(Arrays.equals(netOutput, entry.getValue())){
 				guessedChar = entry.getKey();

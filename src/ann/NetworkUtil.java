@@ -51,6 +51,7 @@ public class NetworkUtil {
 	}
 	
 	public static void saveNetworkTest(GuessWhoDataset guessWho, String[] guessedChars){
+		// add network output to the DataFrame and save to csv file
 		guessWho.df.add("Network output", Arrays.asList(guessedChars));
 		try {
 			guessWho.df.writeCsv("Network_Test.csv");
@@ -61,15 +62,17 @@ public class NetworkUtil {
 		}
 	}
 	
-	public static String[] getNetworkPredictions(double[][]INPUT, 
-			BasicNetwork network){
-		// compute data role by role
+	public static String[] getNetworkPredictions(double[][]INPUT, BasicNetwork network){
+		// compute network output role by role
 		double[][] predictions = new double[INPUT.length][3];
 		String[] predictionsStr = new String[INPUT.length];
+		
 		for(int i=0;i<INPUT.length;i++){
 			double[] input = INPUT[i];
 			MLData data = new BasicMLData(input);
 			MLData output = network.compute(data);
+			// assign 1 if output >= 0.5
+			// otherwise assign 0 
 			for(int j=0;j<output.size();j++){
 				if(output.getData(j) >= THRESHOLD){
 					predictions[i][j] = 1.0;
@@ -78,6 +81,7 @@ public class NetworkUtil {
 					predictions[i][j] = 0.0;
 				}
 			}
+			// get the corresponding character name
 			for(Map.Entry<String, double[]> entry : GuessWhoDataset.CHARACTER_MAP.entrySet()){
 				if(Arrays.equals(predictions[i], entry.getValue())){
 					predictionsStr[i] = entry.getKey();

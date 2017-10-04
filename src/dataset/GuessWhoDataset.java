@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GuessWhoDataset {
-	// create characters map
+	
 	public static final Map<String, double[]> CHARACTER_MAP = createCharMap();
 	public static final Map<String, Double> INPUT_MAP = createInputMap();
     public DataFrame<Object> df;
@@ -44,7 +44,7 @@ public class GuessWhoDataset {
     }
     
     private static Map<String, Double> createInputMap(){
-    	// maps characters' name to the binary arrays that represent them
+    	// maps input to the corresponding number
     	Map<String, Double> charMap = new HashMap<String, Double>();
         charMap.put("Yes", 1.0);
         charMap.put("No", 0.0);
@@ -55,7 +55,7 @@ public class GuessWhoDataset {
 	private double[][] createInputArray(){
 		double[][] INPUT = new double[this.df.length()][this.df.columns().size()-1];
 		String featureInput;
-		
+		// generate input array from DataFrame
 		for(int i=0;i<this.df.length();i++){
 			for(int j=0;j<(this.df.row(i).size()-1);j++){
 				featureInput = this.df.row(i).get(j).toString();
@@ -69,6 +69,7 @@ public class GuessWhoDataset {
 	private double[][] createOutputArray(){
 		double[][] OUTPUT = new double[this.df.length()][3];
 		String name;
+		// generate output array from DataFrame
 		for(int i=0;i<this.df.length();i++){
 			name = this.df.row(i).get(this.df.columns().size()-1).toString();
 			OUTPUT[i] = CHARACTER_MAP.get(name);

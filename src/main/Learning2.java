@@ -5,8 +5,8 @@ import game.GuessWhoGame;
 public class Learning2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		checkArgs(args);
+		// launch the game
 		GuessWhoGame game = new GuessWhoGame(args[0]);
 		game.startGame();
 	}
