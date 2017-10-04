@@ -25,6 +25,10 @@ public class GuessWhoDataset {
     	this.OUTPUT = createOutputArray();
     }
     
+    public GuessWhoDataset(){
+    	this.charMap = createCharMap();
+    }
+    
     private Map<String, double[]> createCharMap(){
     	// maps characters' name to the binary arrays that represent them
     	double[] Alex = {0, 0, 0};
