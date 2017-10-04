@@ -15,16 +15,13 @@ import java.util.Arrays;
 public class Learning1 {
 	
 	public static void main(String[] args) {
-		// check command line argument
-		if(args.length < 1){
-			System.out.println("usage: java -jar Learning1.jar dataset_file");
-			System.exit(0);
-		}
+		// make sure that we have required command line argument
+		checkArgs(args);
 		// read dataset from csv file and create training data
 		GuessWhoDataset gwd = new GuessWhoDataset(args[0]);
 		MLDataSet trainingSet = new BasicMLDataSet(gwd.INPUT, gwd.OUTPUT);
 		
-		int inputUnits = 7; // characters' features
+		int inputUnits = gwd.df.columns().size() - 1; // characters' features
 		int hiddenUnits = 9; // 9 is the best so far
 		int outputUnits = 3; // characters' binary code
 		BasicNetwork network = NetworkUtil.createNetwork(inputUnits, hiddenUnits, 
@@ -47,6 +44,14 @@ public class Learning1 {
 		NetworkUtil.saveNetworkTest(gwd, guessedChars);
 		
 		System.out.println(gwd.df);
+	}
+	
+	private static void checkArgs(String[] args){
+		// check command line argument
+		if(args.length < 1){
+			System.out.println("usage: java -jar Learning1.jar dataset_file");
+			System.exit(0);
+		}
 	}
 
 }

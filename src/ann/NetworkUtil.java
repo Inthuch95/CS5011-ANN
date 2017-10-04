@@ -61,7 +61,6 @@ public class NetworkUtil {
 	public static String[] getNetworkPredictions(double[][]INPUT, 
 			BasicNetwork network, double threshold){
 		// compute data role by role
-		GuessWhoDataset gwd = new GuessWhoDataset();
 		double[][] predictions = new double[INPUT.length][3];
 		String[] predictionsStr = new String[INPUT.length];
 		for(int i=0;i<INPUT.length;i++){
@@ -76,19 +75,19 @@ public class NetworkUtil {
 					predictions[i][j] = 0;
 				}
 			}
-			if(Arrays.equals(predictions[i], gwd.charMap.get("Alex"))){
+			if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Alex"))){
 				predictionsStr[i] = "Alex";
 			}
-			else if(Arrays.equals(predictions[i], gwd.charMap.get("Alfred"))){
+			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Alfred"))){
 				predictionsStr[i] = "Alfred";
 			}
-			else if(Arrays.equals(predictions[i], gwd.charMap.get("Anita"))){
+			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Anita"))){
 				predictionsStr[i] = "Anita";
 			}
-			else if(Arrays.equals(predictions[i], gwd.charMap.get("Anne"))){
+			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Anne"))){
 				predictionsStr[i] = "Anne";
 			}
-			else if(Arrays.equals(predictions[i], gwd.charMap.get("Bernard"))){
+			else if(Arrays.equals(predictions[i], GuessWhoDataset.charMap.get("Bernard"))){
 				predictionsStr[i] = "Bernard";
 			}
 			else{

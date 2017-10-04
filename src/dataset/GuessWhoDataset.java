@@ -8,12 +8,11 @@ import joinery.DataFrame;
 
 public class GuessWhoDataset {
 	// create characters map
-	public Map<String, double[]> charMap = new HashMap<String,double[]>();
+	public static final Map<String, double[]> charMap = createCharMap();
     public DataFrame<Object> df;
     public double[][] INPUT, OUTPUT; 
     
     public GuessWhoDataset(String filename){
-    	this.charMap = createCharMap();
     	try {
 			this.df = DataFrame.readCsv(filename);
 		} 
@@ -25,23 +24,20 @@ public class GuessWhoDataset {
     	this.OUTPUT = createOutputArray();
     }
     
-    public GuessWhoDataset(){
-    	this.charMap = createCharMap();
-    }
-    
-    private Map<String, double[]> createCharMap(){
+    private static Map<String, double[]> createCharMap(){
     	// maps characters' name to the binary arrays that represent them
+    	Map<String, double[]> charMap = new HashMap<String, double[]>();
     	double[] Alex = {0, 0, 0};
     	double[] Alfred = {0, 0, 1};
     	double[] Anita = {0, 1, 0};
     	double[] Anne = {0, 1, 1};
     	double[] Bernard = {1, 0, 0};
     	
-        this.charMap.put("Alex", Alex);
-        this.charMap.put("Alfred", Alfred);
-        this.charMap.put("Anita", Anita);
-        this.charMap.put("Anne", Anne);
-        this.charMap.put("Bernard", Bernard);
+        charMap.put("Alex", Alex);
+        charMap.put("Alfred", Alfred);
+        charMap.put("Anita", Anita);
+        charMap.put("Anne", Anne);
+        charMap.put("Bernard", Bernard);
         
         return charMap;
     }
@@ -67,7 +63,7 @@ public class GuessWhoDataset {
 		String name;
 		for(int i=0;i<this.df.length();i++){
 			name = this.df.row(i).get(this.df.columns().size()-1).toString();
-			OUTPUT[i] = this.charMap.get(name);
+			OUTPUT[i] = charMap.get(name);
 		}
 		
 		return OUTPUT;
