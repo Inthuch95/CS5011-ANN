@@ -9,6 +9,7 @@ import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.back.Backpropagation;
 import dataset.GuessWhoDataset;
+import joinery.DataFrame;
 
 import java.io.File;
 import java.io.IOException;
@@ -96,5 +97,19 @@ public class NetworkUtil {
 		}
 		
 		return predictionsStr;
+	}
+	
+	public static int getclassificationScore(DataFrame df){
+		int score = 0;
+		String observed, predicted; 
+		for(int i=0;i<df.length();i++){
+			observed = df.row(i).get(df.row(i).size()-2).toString(); 
+			predicted = df.row(i).get(df.row(i).size()-1).toString();
+			if(observed.equals(predicted)){
+				score = score + 1;
+			}
+		}
+		
+		return score;
 	}
 }

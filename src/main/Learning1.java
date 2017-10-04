@@ -1,3 +1,4 @@
+package main;
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLDataSet;
@@ -42,8 +43,11 @@ public class Learning1 {
 				network, threshold);
 		// save network test results to csv file
 		NetworkUtil.saveNetworkTest(gwd, guessedChars);
+		int score = NetworkUtil.getclassificationScore(gwd.df);
 		
 		System.out.println(gwd.df);
+		System.out.println("Correctly classified instances: " + 
+		Integer.toString(score) + "/" + Integer.toString(gwd.df.length()));
 	}
 	
 	private static void checkArgs(String[] args){
