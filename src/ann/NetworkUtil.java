@@ -1,5 +1,6 @@
 package ann;
 
+import static org.encog.persist.EncogDirectoryPersistence.loadObject;
 import static org.encog.persist.EncogDirectoryPersistence.saveObject;
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.ml.data.MLData;
@@ -48,6 +49,14 @@ public class NetworkUtil {
 	public static void saveNetwork(BasicNetwork network, String filename){
 		//save the network
 		saveObject(new File(filename), network);
+	}
+	
+	public static BasicNetwork loadNetwork(String filename){
+		// load the network
+		BasicNetwork network = new BasicNetwork();
+		network = (BasicNetwork)loadObject(new File(filename));
+		
+		return network;
 	}
 	
 	public static void saveNetworkTest(GuessWhoDataset guessWho, String[] guessedChars){

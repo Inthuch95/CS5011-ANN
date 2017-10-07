@@ -30,6 +30,7 @@ public class Learning1 {
 		Backpropagation train = new Backpropagation (network, trainingSet, LEARNING_RATE, MOMENTUM);
 		NetworkUtil.trainWithBackpropagation(train);
 		NetworkUtil.saveNetwork(network, NETWORK_FILENAME);
+		network = NetworkUtil.loadNetwork(NETWORK_FILENAME);
 		
 		// test the network
 		String[] guessedChars = NetworkUtil.getNetworkPredictions(gwd.INPUT, network);
