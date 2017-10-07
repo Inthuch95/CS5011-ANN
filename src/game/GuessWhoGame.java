@@ -48,20 +48,15 @@ public class GuessWhoGame {
 	}
 	
 	public void startGame(){
-		boolean keepPlaying = true;
 		String guessedChar;
 		
 		System.out.println("Welcome to Guess Who!\n");
 		// ask the questions and guess the character
-		while(keepPlaying){
-			double[] features = this.collectFeaturesFromUser();
-			System.out.println("Network input: " + Arrays.toString(features));
-			System.out.println("Guessing character...\n");
-			guessedChar = this.guessCharacter(features);
-			System.out.println("It's " + guessedChar + "!");
-			keepPlaying = false;
-		}
-		System.out.println("GG EZ Noob!");
+		double[] features = this.collectFeaturesFromUser();
+		System.out.println("Network input: " + Arrays.toString(features));
+		System.out.println("Let me think...\n");
+		guessedChar = this.guessCharacter(features);
+		System.out.println("It's " + guessedChar + "!");
 	}
 	
 	private double[] collectFeaturesFromUser(){
@@ -109,21 +104,6 @@ public class GuessWhoGame {
 		}
 		
 		return guessedChar;
-	}
-	
-	private boolean askToContinue(){
-		boolean keepPlaying;
-		Scanner scanner = new Scanner(System.in);
-		String userInput = scanner.next();
-		if(userInput.toLowerCase().equals("yes")){
-			keepPlaying = true;
-		}
-		else{
-			keepPlaying = false;
-		}
-		scanner.close();
-		
-		return keepPlaying;
 	}
 	
 }
