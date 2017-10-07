@@ -35,6 +35,7 @@ public class GuessWhoGame {
 		FEATURE_MAP.put("Beard", "Does your character have a beard?");
 		FEATURE_MAP.put("ear rings", "Does your character wear ear rings?");
 		FEATURE_MAP.put("female", "Is your character female?");
+		FEATURE_MAP.put("Tattoo", "Does your character have a tattoo?");
 		
 		return FEATURE_MAP;
 	}

@@ -33,12 +33,14 @@ public class GuessWhoDataset {
     	double[] Anita = {0, 1, 0};
     	double[] Anne = {0, 1, 1};
     	double[] Bernard = {1, 0, 0};
+    	double[] Cercei = {1, 0, 1};
     	
         charMap.put("Alex", Alex);
         charMap.put("Alfred", Alfred);
         charMap.put("Anita", Anita);
         charMap.put("Anne", Anne);
         charMap.put("Bernard", Bernard);
+        charMap.put("Cercei", Cercei);
         
         return charMap;
     }

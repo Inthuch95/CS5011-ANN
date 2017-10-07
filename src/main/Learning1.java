@@ -23,7 +23,7 @@ public class Learning1 {
 		final int OUTPUT_UNITS = 3; // characters' binary code
 		final double LEARNING_RATE = 0.7;
 		final double MOMENTUM = 0.0;
-		final String NETWORK_FILENAME = "Trained_ANN.eg";
+		final String NETWORK_FILENAME = "network_extended.eg";
 		
 		// create and train the network
 		BasicNetwork network = NetworkUtil.createNetwork(INPUT_UNITS, HIDDEN_UNITS, OUTPUT_UNITS);
