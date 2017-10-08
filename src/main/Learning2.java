@@ -19,7 +19,7 @@ public class Learning2 {
 			System.exit(0);
 		}
 		if(args.length == 1){
-			if(!args[1].equals("E")){
+			if(!args[0].equals("E")){
 				System.out.println("Please enter 'E' to enable early guess");
 				System.exit(0);
 			}

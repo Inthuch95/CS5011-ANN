@@ -59,9 +59,7 @@ public class NetworkUtil {
 		return network;
 	}
 	
-	public static void saveNetworkTest(GuessWhoDataset guessWho, String[] guessedChars, String filename){
-		// add network output to the DataFrame and save to csv file
-		guessWho.df.add("Network output", Arrays.asList(guessedChars));
+	public static void saveNetworkTest(GuessWhoDataset guessWho, String filename){
 		try {
 			guessWho.df.writeCsv(filename);
 		} 
@@ -97,6 +95,9 @@ public class NetworkUtil {
 					break;
 				}
 			}
+			if(predictionsStr[i] == null){
+				predictionsStr[i] = "Unknown character";
+			}
 		}
 		
 		return predictionsStr;
@@ -106,7 +107,7 @@ public class NetworkUtil {
 		int score = 0;
 		String observed, predicted; 
 		for(int i=0;i<df.length();i++){
-			observed = df.row(i).get(df.row(i).size()-2).toString(); 
+			observed = df.row(i).get(df.row(i).size()-2).toString();
 			predicted = df.row(i).get(df.row(i).size()-1).toString();
 			if(observed.equals(predicted)){
 				score = score + 1;

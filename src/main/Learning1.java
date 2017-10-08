@@ -39,10 +39,11 @@ public class Learning1 {
 		// add network test results to the DataFrame object
 		gwd.df.add("Network output", Arrays.asList(guessedChars));
 		int score = NetworkUtil.getClassificationScore(gwd.df);
+		double percent = (score / (double)gwd.df.length()) * 100.0;
 		
 		System.out.println(gwd.df);
 		System.out.println("Correctly classified instances: " + 
-		Integer.toString(score) + "/" + Integer.toString(gwd.df.length()));
+				Integer.toString(score) + "/" + Integer.toString(gwd.df.length()) + " (" + percent + "%)");
 	}
 	
 	private static void checkArgs(String[] args){

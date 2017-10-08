@@ -56,7 +56,7 @@ public class GuessWhoGame {
 		System.out.println("Welcome to Guess Who!\n");
 		// ask the questions and guess the character
 		double[] features = this.collectFeaturesFromUser();
-		System.out.println("Network input: " + Arrays.toString(features));
+//		System.out.println("Network input: " + Arrays.toString(features));
 		System.out.println("Let me think...\n");
 		guessedChar = this.guessCharacter(features);
 		System.out.println("It's " + guessedChar + "!");
