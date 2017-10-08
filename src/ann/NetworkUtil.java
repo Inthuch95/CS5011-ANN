@@ -59,11 +59,11 @@ public class NetworkUtil {
 		return network;
 	}
 	
-	public static void saveNetworkTest(GuessWhoDataset guessWho, String[] guessedChars){
+	public static void saveNetworkTest(GuessWhoDataset guessWho, String[] guessedChars, String filename){
 		// add network output to the DataFrame and save to csv file
 		guessWho.df.add("Network output", Arrays.asList(guessedChars));
 		try {
-			guessWho.df.writeCsv("Network_Test.csv");
+			guessWho.df.writeCsv(filename);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

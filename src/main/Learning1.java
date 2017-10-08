@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
@@ -23,7 +25,7 @@ public class Learning1 {
 		final int OUTPUT_UNITS = 3; // characters' binary code
 		final double LEARNING_RATE = 0.7;
 		final double MOMENTUM = 0.0;
-		final String NETWORK_FILENAME = "network_extended.eg";
+		final String NETWORK_FILENAME = "network.eg";
 		
 		// create and train the network
 		BasicNetwork network = NetworkUtil.createNetwork(INPUT_UNITS, HIDDEN_UNITS, OUTPUT_UNITS);
@@ -34,8 +36,8 @@ public class Learning1 {
 		
 		// test the network
 		String[] guessedChars = NetworkUtil.getNetworkPredictions(gwd.INPUT, network);
-		// save network test results to csv file
-		NetworkUtil.saveNetworkTest(gwd, guessedChars);
+		// add network test results to the DataFrame object
+		gwd.df.add("Network output", Arrays.asList(guessedChars));
 		int score = NetworkUtil.getClassificationScore(gwd.df);
 		
 		System.out.println(gwd.df);

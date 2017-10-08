@@ -19,10 +19,12 @@ public class GuessWhoGame {
 	public static final Map<String, double[]> CHARACTER_MAP = GuessWhoDataset.CHARACTER_MAP;
 	public static final double THRESHOLD = 0.5;
 	public BasicNetwork network;
+	public boolean earlyGuess;
 	
-	public GuessWhoGame(String filename){
+	public GuessWhoGame(String filename, boolean earlyGuess){
 		// load the network from a file
 		this.network = (BasicNetwork)loadObject(new File(filename));
+		this.earlyGuess = earlyGuess;
 	}
 	
 	private static Map<String, String> createFeatureMap(){
@@ -65,6 +67,9 @@ public class GuessWhoGame {
 		Scanner scanner = new Scanner(System.in);
 		int i = 0;
 		for(String feature : FEATURE_MAP.keySet()){ 
+			if(this.earlyGuess && i > 2){
+				break;
+			}
 			// ask questions about the characters
 			System.out.println(FEATURE_MAP.get(feature));
 			String userInput = scanner.next();
