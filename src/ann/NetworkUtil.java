@@ -8,6 +8,9 @@ import org.encog.ml.data.basic.BasicMLData;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.back.Backpropagation;
+import org.encog.neural.networks.training.propagation.manhattan.ManhattanPropagation;
+import org.encog.neural.networks.training.propagation.resilient.ResilientPropagation;
+
 import dataset.GuessWhoDataset;
 import joinery.DataFrame;
 
@@ -36,6 +39,28 @@ public class NetworkUtil {
 	}
 	
 	public static void trainWithBackpropagation(Backpropagation train){
+		//train the network
+		int epoch = 1;
+		do {
+		train.iteration();
+		System.out.println("Epoch #" + epoch + " Error:" + train.getError());
+		epoch++;
+		} while(train.getError() > 0.01);
+		train.finishTraining();
+	}
+	
+	public static void trainWithResilientPropagation(ResilientPropagation train){
+		//train the network
+		int epoch = 1;
+		do {
+		train.iteration();
+		System.out.println("Epoch #" + epoch + " Error:" + train.getError());
+		epoch++;
+		} while(train.getError() > 0.01);
+		train.finishTraining();
+	}
+	
+	public static void trainWithManhattanPropagation(ManhattanPropagation train){
 		//train the network
 		int epoch = 1;
 		do {
