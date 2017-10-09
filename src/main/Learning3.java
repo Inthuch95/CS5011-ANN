@@ -31,12 +31,14 @@ public class Learning3 {
 		
 		// create and train the network with ResilientPropagation
 		BasicNetwork network = NetworkUtil.createNetwork(INPUT_UNITS, HIDDEN_UNITS, OUTPUT_UNITS);
+		System.out.println("Training with resilient propagation");
 		network = resilientPropagationTraining(network, gwd, trainingSet, networkFile);
 		
 		// reset the network and train using ManhattanPropagation
 		network.reset();
 		gwd = new GuessWhoDataset(args[0]);
 		networkFile = "network_manhattan.eg";
+		System.out.println("\nTraining with manhattan propagation");
 		network = manhattanPropagationTraining(network, gwd, LEARNING_RATE, trainingSet, networkFile);	
 	}
 	
