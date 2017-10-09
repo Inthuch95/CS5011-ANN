@@ -31,7 +31,7 @@ public class Learning3 {
 		
 		// create and train the network with ResilientPropagation
 		BasicNetwork network = NetworkUtil.createNetwork(INPUT_UNITS, HIDDEN_UNITS, OUTPUT_UNITS);
-		network = resilientPropagationTraining(network, gwd, LEARNING_RATE, MOMENTUM, trainingSet, networkFile);
+		network = resilientPropagationTraining(network, gwd, trainingSet, networkFile);
 		
 		// reset the network and train using ManhattanPropagation
 		network.reset();
@@ -41,7 +41,7 @@ public class Learning3 {
 	}
 	
 	private static BasicNetwork resilientPropagationTraining(BasicNetwork network, GuessWhoDataset gwd, 
-			double learningRate, double momentum, MLDataSet trainingSet, String networkFile){
+			MLDataSet trainingSet, String networkFile){
 	
 		ResilientPropagation train = new ResilientPropagation (network, trainingSet);
 		NetworkUtil.trainWithResilientPropagation(train);
